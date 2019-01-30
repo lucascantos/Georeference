@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>OpenLayers Simplest Example</title>
+</head>
+<body>
+<div id="Map" style="height:1000px"></div>
+<script src="OpenLayers/OpenLayers.js"></script>
+<script>
+
+// https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example
+// http://www.starnet.iag.usp.br/img_starnet/Radar_USP/Integracao/integracao_last.png
+    var lat            = -22.1;
+    var lon            = -48.43609;
+    var zoom           = 7;
+
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+    var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+
+    map = new OpenLayers.Map("Map");
+    var mapnik         = new OpenLayers.Layer.OSM();
+    map.addLayer(mapnik);
+
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    markers.addMarker(new OpenLayers.Marker(position));
+
+    map.setCenter(position, zoom);
+</script>
+</body>
+</html>
