@@ -5,8 +5,12 @@
 		<title>OpenLayers Simplest Example</title>
 	</head>
 <body>
+		<p>asd</p>
+		<input type = "button" onclick = "sayHello()" value = "Say Hello" />
+
 	<div id="Map" style="height:1000px"></div>
-	<script src="OpenLayers/OpenLayers.js"></script>
+
+	<script src="{{ url_for('static', filename = 'OpenLayers.js') }}"></script>
 	<script>
 
 		//https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example
@@ -27,6 +31,10 @@
 		map.addLayer(markers);
 		markers.addMarker(new OpenLayers.Marker(position));
 
+		{% for lng in lighnings %}
+			lon_lat = new OpenLayers.LonLat({{ lng.longitude }}, {{ lng.latitude }}).transform( fromProjection, toProjection);
+			markers.addMarker(new OpenLayers.Marker(position));
+		{% endfor %}
 		map.setCenter(position, zoom);
 	</script>
 </body>

@@ -17,9 +17,10 @@ def crawler(url):
     for pm in folder:
         rawCoord = pm.firstChild.data
         coord = str(rawCoord).split(",")
-        coordList.append(coord)
-    coordArray = np.array(coordList, dtype=float)
-    return coordArray
+        tempDict = {'longitude':coord[0], 'latitude':coord[1]}
+        coordList.append(tempDict)
+    #coordArray = np.array(coordList, dtype=float)
+    return coordList
 
 
 def shapePatch(shape, color):
@@ -59,3 +60,4 @@ def bufferArea(raio):
     r_d = raio / 110744 #converte raio em metros para graus (lat/lon)
     buffer_ratio = (r_d) * (1 - 0.99919687401213 + 1)  # Variavel que converte buffer em metros. Na verdade acho que converte Metros em numero aleatorio pro calculo do buffer
     return buffer_ratio
+

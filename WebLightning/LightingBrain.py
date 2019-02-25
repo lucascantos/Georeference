@@ -7,7 +7,7 @@ import shapefile
 from matplotlib.patches import Polygon as poli
 from shapely.geometry import Polygon
 from shapely.geometry import Point
-import LightingPlot as LP
+import LightningStuff as LP
 
 kml = 'http://www.zeus.iag.usp.br/linet/linet_0-15.kml'
 coordArray = LP.crawler(kml)
