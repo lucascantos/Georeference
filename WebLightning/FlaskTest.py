@@ -13,15 +13,19 @@ lightnings = LS.crawler(kml)
 fnameUF = 'Estados/BRUFE250GC_SIR.shp'
 
 sfBr = shapefile.Reader(fnameUF)
+print (sfBr)
 states = sfBr.shapes()
 SPS = states[24].points
-list_of_lists = [list(elem) for elem in SPS]
-print (list_of_lists[:])
+SPFix = []
+for i in SPS:
+    x = list([i[1],i[0]])
+    SPFix.append(x)
+
 
 
 @app.route('/')
 def home():
-    return render_template('LeafletMap.html', SP=list_of_lists, lightnings=lightnings)
+    return render_template('LeafletMap.html', SP=SPFix, lightnings=lightnings)
 
 if __name__ == '__main__':
     app.run(debug=True)
