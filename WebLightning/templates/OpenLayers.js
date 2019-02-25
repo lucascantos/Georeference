@@ -1,3 +1,1 @@
-function sayHello() {
-   alert("Hello World")
-}
+alert('asdakjsld')

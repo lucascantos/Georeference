@@ -5,12 +5,10 @@
 		<title>OpenLayers Simplest Example</title>
 	</head>
 <body>
-		<p>asd</p>
-		<input type = "button" onclick = "sayHello()" value = "Say Hello" />
-
 	<div id="Map" style="height:1000px"></div>
 
-	<script src="{{ url_for('static', filename = 'OpenLayers.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='OpenLayers/OpenLayers.js') }}"></script>
+
 	<script>
 
 		//https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example
@@ -22,19 +20,24 @@
 		var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
 		var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
 		var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+		var position2       = new OpenLayers.LonLat({{ SP }}).transform( fromProjection, toProjection);
+		var Polys = new OpenLayers.Layer.Markers( "Markers" );
 
 		map = new OpenLayers.Map("Map");
 		var mapnik         = new OpenLayers.Layer.OSM();
 		map.addLayer(mapnik);
 
 		var markers = new OpenLayers.Layer.Markers( "Markers" );
-		map.addLayer(markers);
-		markers.addMarker(new OpenLayers.Marker(position));
 
-		{% for lng in lighnings %}
+		map.addLayer(markers);
+
+		//markers.addMarker(new OpenLayers.Marker(position));
+
+		{% for lng in lightnings %}
 			lon_lat = new OpenLayers.LonLat({{ lng.longitude }}, {{ lng.latitude }}).transform( fromProjection, toProjection);
-			markers.addMarker(new OpenLayers.Marker(position));
+			markers.addMarker(new OpenLayers.Marker(lon_lat));
 		{% endfor %}
+		alert(lon_lat)
 		map.setCenter(position, zoom);
 	</script>
 </body>
